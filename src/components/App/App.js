@@ -56,6 +56,17 @@ class App extends React.Component {
         },
       ],
     };
+    this.addTrack = this.addTrack.bind(this);
+  }
+  addTrack(track) {
+    // Check if track id is in current playlist, if yes, do nothing
+    // else add track to the end of the playlist array
+    if (!this.state.playlistTracks.includes(track.id)) {
+      // then set state with updated playlist
+      this.setState((prevState) => ({
+        playlistTracks: [...prevState.playlistTracks, track],
+      }));
+    }
   }
 
   render() {
@@ -67,7 +78,10 @@ class App extends React.Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults tracks={this.state.searchResults} />
+            <SearchResults
+              onAdd={this.addTrack}
+              tracks={this.state.searchResults}
+            />
             <PlayList tracks={this.state.playlistTracks} />
           </div>
         </div>
