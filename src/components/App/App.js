@@ -57,13 +57,13 @@ class App extends React.Component {
       ],
     };
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
   addTrack(track) {
     // Check if track id is in current playlist, if yes, do nothing
     // else add track to the end of the playlist array
     if (!this.state.playlistTracks.includes(track.id)) {
       // then set state with updated playlist
-      console.log(track.id);
       this.setState((prevState) => ({
         playlistTracks: [...prevState.playlistTracks, track],
       }));
@@ -72,7 +72,8 @@ class App extends React.Component {
   removeTrack(track) {
     // Check if track id is in current playlist, if yes, do nothing
     // else remove track from the playlist array
-    if (!this.state.playlistTracks.includes(track.id)) {
+    if (this.state.playlistTracks.includes(track.id)) {
+      console.log({ track });
       // then set state with updated playlist
       this.state.playlistTracks.filter((song) => song.id === track.id);
     }
@@ -103,3 +104,8 @@ class App extends React.Component {
 }
 
 export default App;
+
+// TODO: 
+// Not working properly 
+// - addTrack does not check for unique id
+// - removeTrack TypeError: this.props.onAdd is not a function
