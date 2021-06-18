@@ -63,9 +63,18 @@ class App extends React.Component {
     // else add track to the end of the playlist array
     if (!this.state.playlistTracks.includes(track.id)) {
       // then set state with updated playlist
+      console.log(track.id);
       this.setState((prevState) => ({
         playlistTracks: [...prevState.playlistTracks, track],
       }));
+    }
+  }
+  removeTrack(track) {
+    // Check if track id is in current playlist, if yes, do nothing
+    // else remove track from the playlist array
+    if (!this.state.playlistTracks.includes(track.id)) {
+      // then set state with updated playlist
+      this.state.playlistTracks.filter((song) => song.id === track.id);
     }
   }
 
@@ -82,7 +91,10 @@ class App extends React.Component {
               onAdd={this.addTrack}
               tracks={this.state.searchResults}
             />
-            <PlayList tracks={this.state.playlistTracks} />
+            <PlayList
+              tracks={this.state.playlistTracks}
+              onRemove={this.removeTrack}
+            />
           </div>
         </div>
       </div>
