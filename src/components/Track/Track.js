@@ -5,7 +5,7 @@ class Track extends React.Component {
   constructor(props) {
     super(props);
     this.addTrack = this.addTrack.bind(this);
-    this.removeTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
   renderAction() {
     if (this.props.isRemoval === true) {
@@ -25,17 +25,12 @@ class Track extends React.Component {
     }
   }
   addTrack() {
-    console.log(this.props.isRemoval);
-    if (this.props.isRemoval === false) {
+    if (this.props.onAdd) {
       this.props.onAdd(this.props.track);
     }
   }
   removeTrack() {
-    console.log(this.props.isRemoval);
-    // if isRemoval = true
-    if (this.props.isRemoval === true) {
-      this.props.onRemove(this.props.track);
-    }
+    this.props.onRemove(this.props.track);
   }
   render() {
     return (
