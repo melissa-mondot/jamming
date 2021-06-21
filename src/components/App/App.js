@@ -67,6 +67,7 @@ class App extends React.Component {
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
   }
 
   // Check if track is in current playlist, if yes, do nothing
@@ -105,10 +106,16 @@ class App extends React.Component {
   savePlaylist() {
     let newList = [];
     this.state.playlistTracks.forEach((uri) => {
-      newList.push(uri);
+      newList.push(uri.uri);
     });
     console.log(newList);
     return newList;
+  }
+
+  // capture e.target.value
+  // connect to Spotify API when all is functioning
+  search(term) {
+    console.log(term);
   }
 
   render() {
@@ -118,7 +125,7 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
-          <SearchBar />
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults
               onAdd={this.addTrack}
