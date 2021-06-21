@@ -58,24 +58,21 @@ class App extends React.Component {
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
   }
   addTrack(track) {
     // Check if track id is in current playlist, if yes, do nothing
     // else add track to the end of the playlist array
-    // if (!this.state.playlistTracks.includes(track.id)) {
     // then set state with updated playlist
     if (!this.state.playlistTracks.includes(track)) {
       this.setState((prevState) => ({
         playlistTracks: [...prevState.playlistTracks, track],
       }));
     }
-    // }
   }
   removeTrack(track) {
-    console.log(this.state.playlistTracks.includes(track));
     // Check if track id is in current playlist, if yes, do nothing
     // else remove track from the playlist array
-    // if (this.state.playlistTracks.includes(track.id)) {
     // then set state with updated playlist
     if (this.state.playlistTracks.includes(track)) {
       this.setState((prevState) => ({
@@ -84,6 +81,11 @@ class App extends React.Component {
         ),
       }));
     }
+  }
+  updatePlaylistName(name) {
+    this.setState(() => ({
+      playlistName: name,
+    }));
   }
 
   render() {
@@ -102,6 +104,7 @@ class App extends React.Component {
             <PlayList
               tracks={this.state.playlistTracks}
               onRemove={this.removeTrack}
+              onNameChange={this.updatePlaylistName}
             />
           </div>
         </div>
