@@ -3,6 +3,7 @@ import "./App.css";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import PlayList from "../PlayList/PlayList";
+import Spotify from "../../util/Spotify";
 
 class App extends React.Component {
   constructor(props) {
@@ -118,6 +119,10 @@ class App extends React.Component {
     console.log(term);
   }
 
+  authorize() {
+    this.Spotify.getAccessToken();
+  }
+
   render() {
     return (
       <div>
@@ -125,7 +130,7 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
-          <SearchBar onSearch={this.search} />
+          <SearchBar onSearch={this.search} onAuth={this.authorize} />
           <div className="App-playlist">
             <SearchResults
               onAdd={this.addTrack}
