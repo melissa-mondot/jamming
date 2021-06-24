@@ -12,12 +12,13 @@ let userAccessToken;
 const Spotify = {
   getAccessToken() {
     if (userAccessToken) {
+      console.log(userAccessToken);
       return userAccessToken;
     }
     // check for matching token/time in url
     // captures everything after expires_in until encounters &
     if (
-      typeof userAccessToken === undefined &&
+      !userAccessToken &&
       window.location.href.includes("access_token") &&
       window.location.href.includes("expires_in")
     ) {
@@ -28,12 +29,11 @@ const Spotify = {
       console.log(userAccessToken);
       // force window to clear user token at time specified by expires_in(returned in seconds)
       window.setTimeout(() => (userAccessToken = ""), tokenExpiresMatch * 1000);
-      // TODO: I think this issue is here -- because search api returns if input gets one letter. Any more, and GET access is denied. userToken is undefined for both.
-      window.history.pushState("User Access Token", null, "/");
+      window.history.pushState(userAccessToken, null, "/");
     }
     // If no token and no info in the url, then point to auth link
     if (
-      userAccessToken === "" &&
+      !userAccessToken &&
       !window.location.href.includes("access_token") &&
       !window.location.href.includes("expires_in")
     ) {
@@ -46,8 +46,8 @@ const Spotify = {
     const options = {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${userAccessToken}`,
-        // Authorization: `Bearer BQCenlGpreW3FdTMJoui4KOnJ9vPKLQzyYbhnGYwO_zOYZ3aZSngHipYuykbaUPeNZNLyS0tu2LdHln052DCE6oXLSSYXJkHk_JP0Myc4jALtn1VcTUGGAmF-ioJLagdKNFDfypZN0vsM_xKrVrpOLrPSxahN0lelDkuSakUx4rF-HcRbppr_lpAN6XKQNpRKYy88BcnyvKxqxJ9eCfwplvxeI-Y`,
+        // Authorization: `Bearer ${userAccessToken}`,
+        Authorization: `Bearer BQCenlGpreW3FdTMJoui4KOnJ9vPKLQzyYbhnGYwO_zOYZ3aZSngHipYuykbaUPeNZNLyS0tu2LdHln052DCE6oXLSSYXJkHk_JP0Myc4jALtn1VcTUGGAmF-ioJLagdKNFDfypZN0vsM_xKrVrpOLrPSxahN0lelDkuSakUx4rF-HcRbppr_lpAN6XKQNpRKYy88BcnyvKxqxJ9eCfwplvxeI-Y`,
       },
     };
     fetch(searchTrackEndpoint + term, options)
