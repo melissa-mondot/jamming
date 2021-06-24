@@ -116,11 +116,8 @@ class App extends React.Component {
   // capture e.target.value
   // connect to Spotify API when all is functioning
   search(term) {
-    console.log(term);
-  }
-
-  authorize() {
-    this.Spotify.getAccessToken();
+    const result = Spotify.search(term);
+    return result;
   }
 
   render() {
@@ -130,7 +127,7 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
-          <SearchBar onSearch={this.search} onAuth={this.authorize} />
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults
               onAdd={this.addTrack}
