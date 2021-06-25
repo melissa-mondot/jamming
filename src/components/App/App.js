@@ -9,65 +9,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [
-        {
-          id: 1,
-          uri: "slak33nr",
-          artist_name: "artist1",
-          track_name: "track1",
-          album_name: "album1",
-        },
-        {
-          id: 2,
-          uri: "spaom2NNJ",
-          artist_name: "artist2",
-          track_name: "track2",
-          album_name: "album2",
-        },
-        {
-          id: 3,
-          uri: "poojnu9oih",
-          artist_name: "artist3",
-          track_name: "track3",
-          album_name: "album3",
-        },
-        {
-          id: 4,
-          uri: "fhtfae5443",
-          artist_name: "artist4",
-          track_name: "track4",
-          album_name: "album4",
-        },
-        {
-          id: 5,
-          uri: "asj5ahyje24",
-          artist_name: "artist5",
-          track_name: "track5",
-          album_name: "album5",
-        },
-      ],
-      playlistName: "Test Playlist",
-      playlistTracks: [
-        {
-          id: 3,
-          uri: "poojnu9oih",
-          artist_name: "artist3",
-          track_name: "track3",
-          album_name: "album3",
-        },
-        {
-          id: 4,
-          uri: "fhtfae5443",
-          artist_name: "artist4",
-          track_name: "track4",
-          album_name: "album4",
-        },
-      ],
+      searchResults: [],
+      playlistName: "",
+      playlistTracks: [],
+      searchTerm: "",
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.search = this.search.bind(this);
   }
 
@@ -113,10 +64,15 @@ class App extends React.Component {
     return newList;
   }
 
-  // capture e.target.value
-  // connect to Spotify API when all is functioning
-  search(term) {
-    const result = Spotify.search(term);
+  // Capture term and set state
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+  search() {
+    const result = Spotify.search(this.searchTerm);
     return result;
   }
 
@@ -127,7 +83,10 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
-          <SearchBar onSearch={this.search} />
+          <SearchBar
+            handleChange={this.handleChange}
+            searchTerm={this.state.searchTerm}
+          />
           <div className="App-playlist">
             <SearchResults
               onAdd={this.addTrack}
