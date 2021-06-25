@@ -8,7 +8,7 @@ class SearchBar extends React.Component {
   }
   handleChange(e) {
     e.preventDefault();
-    this.props.handleChange(e)
+    this.props.onTermChange(e.target.value);
   }
   render() {
     return (

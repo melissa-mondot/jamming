@@ -18,7 +18,6 @@ class App extends React.Component {
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.search = this.search.bind(this);
   }
 
@@ -64,17 +63,8 @@ class App extends React.Component {
     return newList;
   }
 
-  // Capture term and set state
-
-  handleChange(e) {
-    e.preventDefault();
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  }
   search(term) {
-    const result = Spotify.search(term);
-    return result;
+    Spotify.search(term);
   }
 
   render() {
@@ -85,7 +75,7 @@ class App extends React.Component {
         </h1>
         <div className="App">
           <SearchBar
-            handleChange={this.handleChange}
+            onTermChange={this.search}
             searchTerm={this.state.searchTerm}
           />
           {console.log(this.state.searchTerm)}
