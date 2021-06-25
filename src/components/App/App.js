@@ -67,12 +67,13 @@ class App extends React.Component {
   // Capture term and set state
 
   handleChange(e) {
+    e.preventDefault();
     this.setState({
       [e.target.name]: e.target.value,
     });
   }
-  search() {
-    const result = Spotify.search(this.searchTerm);
+  search(term) {
+    const result = Spotify.search(term);
     return result;
   }
 
@@ -87,6 +88,7 @@ class App extends React.Component {
             handleChange={this.handleChange}
             searchTerm={this.state.searchTerm}
           />
+          {console.log(this.state.searchTerm)}
           <div className="App-playlist">
             <SearchResults
               onAdd={this.addTrack}
