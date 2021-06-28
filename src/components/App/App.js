@@ -64,8 +64,9 @@ class App extends React.Component {
   }
 
   async search(term) {
-    const tracks = await Spotify.search(term);
-    console.log(tracks);
+    const jsonResponse = await Spotify.search(term);
+    const spotifyTracks = await jsonResponse.tracks.items;
+    console.log(spotifyTracks);
   }
 
   render() {
@@ -75,7 +76,7 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
-          <SearchBar onTermChange={this.search} />
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults
               onAdd={this.addTrack}
