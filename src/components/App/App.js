@@ -63,8 +63,9 @@ class App extends React.Component {
     return newList;
   }
 
-  search(term) {
-    Spotify.search(term);
+  async search(term) {
+    const tracks = await Spotify.search(term);
+    console.log(tracks);
   }
 
   render() {
@@ -74,11 +75,7 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
-          <SearchBar
-            onTermChange={this.search}
-            searchTerm={this.state.searchTerm}
-          />
-          {console.log(this.state.searchTerm)}
+          <SearchBar onTermChange={this.search} />
           <div className="App-playlist">
             <SearchResults
               onAdd={this.addTrack}

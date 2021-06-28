@@ -30,28 +30,24 @@ const Spotify = {
         () => (userAccessToken = ""),
         tokenExpiresMatch[1] * 1000
       );
-      window.history.pushState(userAccessToken, null, "/");
-    }
-    // If no token and no info in the url, then point to auth link
-    if (
-      !userAccessToken &&
-      !window.location.href.includes("access_token") &&
-      !window.location.href.includes("expires_in")
-    ) {
-      window.location.replace(authEndpoint);
+      window.history.pushState("Access Token", null, "/");
+    } else {
+      // If no token and no info in the url, then point to auth link
+      window.location = authEndpoint;
     }
   },
-  // TODO: search query doesn't consume data
-  search(term) {
+  // get data method
+  async search(term) {
     const options = {
       method: "GET",
       headers: {
         Authorization: `Bearer ${this.getAccessToken()}`,
       },
     };
-    fetch(searchTrackEndpoint + term, options)
-      .then((res) => res.json())
-      .then((res) => console.log(res));
+    const response = await fetch(searchTrackEndpoint + term, options);
+    const data = await response.json();
+
+    return data;
   },
 };
 
