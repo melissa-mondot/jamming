@@ -1,8 +1,10 @@
 # Jamming
 
 ![Jamming](https://github.com/melissa-mondot/jamming/blob/master/src/assets/img/desktop_screenshot.png?raw=true)
-![Jamming_mobile](https://github.com/melissa-mondot/jamming/blob/master/src/assets/img/mobile_screenshot.png?raw=true)
-![Jamming_mobile2](https://github.com/melissa-mondot/jamming/blob/master/src/assets/img/mobile_screenshot2.png?raw=true)
+
+---
+
+![Jamming_mobile](https://github.com/melissa-mondot/jamming/blob/master/src/assets/img/mobile_screenshot.png?raw=true)![Jamming_mobile2](https://github.com/melissa-mondot/jamming/blob/master/src/assets/img/mobile_screenshot2.png?raw=true)
 
 A partial Spotify clone, using Spotify Web API
 
