@@ -71,8 +71,9 @@ class App extends React.Component {
     this.setState({ searchResults: spotifyTracks });
   }
 
-  authCheck() {
-    Spotify.getAccessToken();
+  async authCheck() {
+    await Spotify.getAccessToken();
+    await Spotify.getUserData();
   }
 
   render() {

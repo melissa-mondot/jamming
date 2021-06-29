@@ -6,8 +6,10 @@ const authEndpoint = `${authApiUrl}?client_id=${clientId}&redirect_uri=${redirec
   "%20"
 )}&response_type=token&show_dialog=true`;
 const searchTrackEndpoint = `https://api.spotify.com/v1/search?type=track&q=`;
+const userInfoEndpoint = `https://api.spotify.com/v1/me`;
 
 let userAccessToken;
+let userSpotifyId;
 
 const Spotify = {
   getAccessToken() {
@@ -48,6 +50,20 @@ const Spotify = {
     const data = await response.json();
 
     return data;
+  },
+  async getUserData() {
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    };
+    const response = await fetch(userInfoEndpoint, options);
+    const data = await response.json();
+    userSpotifyId = data.id;
+    console.log(userSpotifyId);
+
+    return userSpotifyId;
   },
 };
 
