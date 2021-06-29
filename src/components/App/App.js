@@ -83,6 +83,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // needs a set timeout so it stays on app before forwarding to auth
     this.authCheck();
   }
 
@@ -114,7 +115,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// TODO:
-// Not working properly
-// Nothing..for the moment
