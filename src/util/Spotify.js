@@ -1,3 +1,6 @@
+let userAccessToken;
+let userSpotifyId;
+
 const authApiUrl = `https://accounts.spotify.com/authorize`;
 const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const redirectUri = process.env.REACT_APP_REDIRECT_URI;
@@ -7,9 +10,7 @@ const authEndpoint = `${authApiUrl}?client_id=${clientId}&redirect_uri=${redirec
 )}&response_type=token&show_dialog=true`;
 const searchTrackEndpoint = `https://api.spotify.com/v1/search?type=track&q=`;
 const userInfoEndpoint = `https://api.spotify.com/v1/me`;
-
-let userAccessToken;
-let userSpotifyId;
+const playlistEndpoint = `https://api.spotify.com/v1/users/`;
 
 const Spotify = {
   getAccessToken() {
@@ -38,7 +39,20 @@ const Spotify = {
       window.location = authEndpoint;
     }
   },
-  // get data method
+  async getUserData() {
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    };
+    const response = await fetch(userInfoEndpoint, options);
+    const data = await response.json();
+    userSpotifyId = data.id;
+
+    return userSpotifyId;
+  },
+  // Get track data
   async search(term) {
     const options = {
       method: "GET",
@@ -51,19 +65,20 @@ const Spotify = {
 
     return data;
   },
-  async getUserData() {
+  async saveNewPlaylistName(name) {
+    console.log({ userSpotifyId });
     const options = {
-      method: "GET",
+      method: "POST",
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
       },
+      body: JSON.stringify({ name: name }),
     };
-    const response = await fetch(userInfoEndpoint, options);
+    const response = await fetch(playlistEndpoint+userSpotifyId+'/playlists/', options);
     const data = await response.json();
-    userSpotifyId = data.id;
-    console.log(userSpotifyId);
+    console.log(data);
 
-    return userSpotifyId;
+    return data;
   },
 };
 

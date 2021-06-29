@@ -4,7 +4,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import PlayList from "../PlayList/PlayList";
 import Spotify from "../../util/Spotify";
-
+// onFocus={this.props.onAuthCheck}
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,6 +18,7 @@ class App extends React.Component {
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
+    this.saveNewPlaylist = this.saveNewPlaylist.bind(this);
     this.search = this.search.bind(this);
   }
 
@@ -63,9 +64,14 @@ class App extends React.Component {
     return newList;
   }
 
+  saveNewPlaylist() {
+    Spotify.saveNewPlaylistName(this.state.playlistName);
+    // console.log(this.state.playlistName);
+  }
+
   async search(term) {
     const jsonResponse = await Spotify.search(term);
-    console.log(jsonResponse);
+    // console.log(jsonResponse);
     const spotifyTracks = await jsonResponse.tracks.items;
 
     this.setState({ searchResults: spotifyTracks });
@@ -74,6 +80,10 @@ class App extends React.Component {
   async authCheck() {
     await Spotify.getAccessToken();
     await Spotify.getUserData();
+  }
+
+  componentDidMount() {
+    this.authCheck();
   }
 
   render() {
@@ -89,11 +99,12 @@ class App extends React.Component {
               onAdd={this.addTrack}
               tracks={this.state.searchResults}
             />
+            {console.log(this.state.playlistName)}
             <PlayList
               tracks={this.state.playlistTracks}
               onRemove={this.removeTrack}
               onNameChange={this.updatePlaylistName}
-              onSave={this.savePlaylist}
+              onSave={this.saveNewPlaylist}
             />
           </div>
         </div>

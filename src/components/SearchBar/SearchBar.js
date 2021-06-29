@@ -22,7 +22,6 @@ class SearchBar extends React.Component {
           placeholder="Enter A Song, Album, or Artist"
           value={this.state.value}
           onChange={this.handleChange}
-          onFocus={this.props.onAuthCheck}
           name="searchTerm"
           type="text"
         />
