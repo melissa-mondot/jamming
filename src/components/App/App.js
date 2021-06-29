@@ -65,9 +65,14 @@ class App extends React.Component {
 
   async search(term) {
     const jsonResponse = await Spotify.search(term);
+    console.log(jsonResponse);
     const spotifyTracks = await jsonResponse.tracks.items;
 
     this.setState({ searchResults: spotifyTracks });
+  }
+
+  authCheck() {
+    Spotify.getAccessToken();
   }
 
   render() {
@@ -77,7 +82,7 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
-          <SearchBar onSearch={this.search} />
+          <SearchBar onSearch={this.search} onAuthCheck={this.authCheck} />
           <div className="App-playlist">
             <SearchResults
               onAdd={this.addTrack}

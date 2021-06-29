@@ -41,7 +41,7 @@ const Spotify = {
     const options = {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${this.getAccessToken()}`,
+        Authorization: `Bearer ${userAccessToken}`,
       },
     };
     const response = await fetch(searchTrackEndpoint + term, options);
