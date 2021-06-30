@@ -52,6 +52,7 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 
 - Add dev dependencies to README
 - View and edit all user playlists
+- Add function to truncate names over x characters
 
 ## Team
 
