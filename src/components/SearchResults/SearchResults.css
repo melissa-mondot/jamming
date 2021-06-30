@@ -3,8 +3,13 @@
   height: 950px;
   overflow-y: scroll;
   padding: 0.88rem;
-  background-color: rgba(1, 12, 63, 0.7);
-  box-shadow: 0 4px 2px 2px #000000;
+  border-radius: 50px;
+  background: #0d2696;
+  box-shadow: 26px 26px 52px #091b69, -26px -26px 52px #1131c3;
+}
+
+.SearchResults h2 {
+  padding-left: 2rem;
 }
 
 ::-webkit-scrollbar {
@@ -12,7 +17,7 @@
   background: transparent;
 }
 
-@media only screen and (max-width: 1020px) {
+@media only screen and (max-width: 1200px) {
   .SearchResults {
     width: 90%;
     margin-bottom: 2rem;

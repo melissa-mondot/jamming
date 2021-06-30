@@ -36,6 +36,8 @@ class Track extends React.Component {
     return (
       <div className="Track">
         <div className="Track-information">
+          {/* TODO: function If track name/info is longer than x chars, truncate at x  */}
+
           <h3>{this.props.track.name}</h3>
           <p>
             {" "}
