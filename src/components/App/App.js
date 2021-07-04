@@ -64,9 +64,22 @@ class App extends React.Component {
     return newList;
   }
 
-  saveNewPlaylist() {
-    Spotify.saveNewPlaylistName(this.state.playlistName);
-    // console.log(this.state.playlistName);
+  async saveNewPlaylist() {
+    const jsonResponseName = await Spotify.saveNewPlaylistName(
+      this.state.playlistName
+    );
+    const playlistId = await jsonResponseName.id;
+    const playlistTracks = this.state.playlistTracks
+      .map((track) => track.id)
+      .map((uriList) => `spotify:track:${uriList}`);
+    console.log(playlistTracks);
+
+    const jsonResponseList = await Spotify.addPlaylistTracks(
+      playlistTracks,
+      playlistId
+    );
+    console.log(jsonResponseList);
+    return jsonResponseList;
   }
 
   async search(term) {

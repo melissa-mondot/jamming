@@ -8,9 +8,7 @@ const scopes = ["playlist-modify-public", "playlist-modify-private"];
 const authEndpoint = `${authApiUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
   "%20"
 )}&response_type=token&show_dialog=true`;
-const searchTrackEndpoint = `https://api.spotify.com/v1/search?type=track&q=`;
-const userInfoEndpoint = `https://api.spotify.com/v1/me`;
-const playlistEndpoint = `https://api.spotify.com/v1/users/`;
+const spotifyWebApi = `https://api.spotify.com/v1`;
 
 const Spotify = {
   getAccessToken() {
@@ -46,7 +44,7 @@ const Spotify = {
         Authorization: `Bearer ${userAccessToken}`,
       },
     };
-    const response = await fetch(userInfoEndpoint, options);
+    const response = await fetch(spotifyWebApi + "/me", options);
     const data = await response.json();
     userSpotifyId = data.id;
 
@@ -60,7 +58,10 @@ const Spotify = {
         Authorization: `Bearer ${userAccessToken}`,
       },
     };
-    const response = await fetch(searchTrackEndpoint + term, options);
+    const response = await fetch(
+      spotifyWebApi + "/search?type=track&q=" + term,
+      options
+    );
     const data = await response.json();
 
     return data;
@@ -74,10 +75,28 @@ const Spotify = {
       },
       body: JSON.stringify({ name: name }),
     };
-    const response = await fetch(playlistEndpoint+userSpotifyId+'/playlists/', options);
+    const response = await fetch(
+      spotifyWebApi + "/users/" + userSpotifyId + "/playlists/",
+      options
+    );
+    const data = await response.json();
+
+    return data;
+  },
+  async addPlaylistTracks(uris, playlistId) {
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+      body: JSON.stringify({ uris: uris }),
+    };
+    const response = await fetch(
+      `${spotifyWebApi}/playlists/${playlistId}/tracks`,
+      options
+    );
     const data = await response.json();
     console.log(data);
-
     return data;
   },
 };
