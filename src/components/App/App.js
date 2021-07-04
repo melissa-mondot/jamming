@@ -128,3 +128,8 @@ class App extends React.Component {
 }
 
 export default App;
+
+// TODO: 
+//  - Host live demo (netlify for variety?)
+//  - Add new component to list user playlists
+//  - Add ability to edit playlists
